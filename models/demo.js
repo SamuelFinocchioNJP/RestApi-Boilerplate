@@ -7,16 +7,16 @@ const Schema = mongoose.Schema;
 
 const DemoSchema = new Schema ({
     // Defining a string attribute
-    string_attribute: {
+    stringAttribute: {
         type: String, 
         required: [true, 'attribute required']
     },
     // Defining a number attribute
-    number_attribute: {
+    numberAttribute: {
         type: Number
     },
     // Defining a boolean attribute
-    boolean_attribute: {
+    booleanAttribute: {
         type: Boolean,
         default: false
     }
