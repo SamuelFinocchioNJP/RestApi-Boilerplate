@@ -7,6 +7,11 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const expressJwt = require('express-jwt');
+const passportConfig = require('./config/passport');
+const mainConfig = require('./config/main');
+const authenticate = expressJwt({secret: mainConfig.secret});
 
 // Initialization
 const app = express();
@@ -18,6 +23,9 @@ mongoose.Promise = global.Promise;
 // Adding bodyParser middleware
 app.use(bodyParser.json());
 
+// Passport initilization
+app.use(passport.initialize());
+
 // Requests handling
 app.get('/', function (req, res, next) {
     res.send('API Running successfully');
@@ -26,6 +34,9 @@ app.get('/', function (req, res, next) {
 // Using custom routes
 const demo = require('./routes/demo');
 app.use('/custom', demo);
+
+const user = require ('./routes/user');
+app.use(user);
 
 // Error handling middleware
 app.use(function(err, req, res, next) {
