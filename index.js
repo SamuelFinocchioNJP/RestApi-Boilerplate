@@ -8,23 +8,29 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const morgan = require('morgan');
+
+const mainConfig = require('./config/main');
 
 // Initialization
 const app = express();
 
 // Database connection
-mongoose.connect('mongodb://localhost/demodb');
+mongoose.connect(mainConfig.mongoDatabase);
 mongoose.Promise = global.Promise;
 
 // Adding bodyParser middleware
 app.use(bodyParser.json());
 
-// Passport initilization
+// Morgan initialization
+app.use(morgan(mainConfig.environment));
+
+// Passport initialization
 app.use(passport.initialize());
 
 // Requests handling
 app.get('/', function (req, res, next) {
-    res.send('API Running successfully');
+    res.send('Api running under /api route!');
 });
 
 // Using custom routes
@@ -44,5 +50,6 @@ const port = process.env.port || 8000;
 
 // Listening 
 app.listen(port, function() {
-    console.log ("Application listening on port " + port);
+    console.log ("A penguin is dancing on http://localhost:" + port);
+    console.log ("App is running in " + mainConfig.environment + " mode.");
 });
