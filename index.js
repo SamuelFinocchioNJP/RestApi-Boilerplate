@@ -8,10 +8,6 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const expressJwt = require('express-jwt');
-const passportConfig = require('./config/passport');
-const mainConfig = require('./config/main');
-const authenticate = expressJwt({secret: mainConfig.secret});
 
 // Initialization
 const app = express();

@@ -6,12 +6,12 @@ const router = express.Router();
 const config = require('../config/main');
 
 // Authentication dependencies
-var jwt = require('jsonwebtoken');
 var passport = require('passport');
 
 // Models
 const User = require('../models/user');
 const expressJwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
 const passportConfig = require('../config/passport');
 const mainConfig = require('../config/main');
 const authenticate = expressJwt({secret: mainConfig.secret});
@@ -36,8 +36,8 @@ router.post('/login', function(req, res, next) {
         user.comparePassword(req.body.password, function(err, matching) {
             if(!err && matching) {
                 console.log(config.secret);
-                var token = jwt.sign(user, config.secret, {expiresIn: 600});
-                res.send( {success: true, message: 'JWT ' + token} );
+                var token = jwt.sign(user, config.secret, {expiresIn: 2592000});
+                res.send( {success: true, message: 'Bearer ' + token} );
             } else {
                 res.status(403).send( {success: false, message: "Wrong username or password"} );
             }

@@ -47,7 +47,7 @@ UserSchema.methods.comparePassword = function (password, next) {
         if(err) return next(err);
         next(null, isMatch);
     });
-}
+};
 
 // Creating model from schema
 const User = mongoose.model('user', UserSchema);
