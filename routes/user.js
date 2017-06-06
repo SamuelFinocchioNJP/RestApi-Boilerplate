@@ -49,5 +49,13 @@ router.get('/protected',  authenticate, function (req, res, next) {
      res.status(200).send( {success: true, message: "logged"} );
 });
 
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 
 module.exports = router;
