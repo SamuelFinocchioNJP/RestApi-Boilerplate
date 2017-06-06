@@ -12,7 +12,7 @@ var passport = require('passport');
 const User = require('../models/user');
 const expressJwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
-const passportConfig = require('../config/passport');
+const passportConfig = require('../config/passport')(passport);
 const mainConfig = require('../config/main');
 const authenticate = expressJwt({secret: mainConfig.secret});
 
@@ -49,10 +49,10 @@ router.get('/protected',  authenticate, function (req, res, next) {
      res.status(200).send( {success: true, message: "logged"} );
 });
 
-app.get('/auth/google',
+router.get('/auth/google',
     passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-app.get('/auth/google/callback',
+router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
         res.redirect('/');

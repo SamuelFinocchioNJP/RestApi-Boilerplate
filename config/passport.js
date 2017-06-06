@@ -4,6 +4,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var User = require('../models/user');
 var config = require('../config/main');
+var apiCredentials = require('../config/api_credentials');
 
 // Setup work and export for the JWT passport strategy
 module.exports = function(passport) {
@@ -26,15 +27,19 @@ module.exports = function(passport) {
     }));
 
     // Google Strategy Login
-    passport.use(new GoogleStrategy({
-            clientID: GOOGLE_CLIENT_ID,
-            clientSecret: GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost/auth/google/callback"
+    passport.use('google', new GoogleStrategy({
+            clientID: apiCredentials.GOOGLE_CLIENT_ID,
+            clientSecret: apiCredentials.GOOGLE_CLIENT_SECRET,
+            callbackURL: apiCredentials.GOOGLE_CALLBACK_URL
         },
         function(accessToken, refreshToken, profile, done) {
-            User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            /*User.findOrCreate({ googleId: profile.id }, function (err, user) {
                 return done(err, user);
-            });
+            });*/
+            console.log(JSON.stringify(profile));
         }
     ));
+
+    // Facebook Strategy Login
+
 };
