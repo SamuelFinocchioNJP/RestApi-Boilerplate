@@ -45,10 +45,13 @@ router.post('/login', function(req, res, next) {
     }).catch(next);
 });
 
+
+// Protected api example
 router.get('/protected',  authenticate, function (req, res, next) {
      res.status(200).send( {success: true, message: "logged"} );
 });
 
+// Google authentication routes
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
@@ -57,5 +60,11 @@ router.get('/auth/google/callback',
     function(req, res) {
         res.redirect('/');
     });
+
+// Facebook authentication routes
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
 
 module.exports = router;
