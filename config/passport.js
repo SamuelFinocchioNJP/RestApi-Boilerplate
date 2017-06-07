@@ -1,6 +1,10 @@
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookStrategy = require('passport-facebook');
+var TwitterStrategy = require('passport-twitter').Strategy;
+var GitHubStrategy = require('passport-github2').Strategy;
+var LinkedInStrategy = require('passport-linkedin').Strategy;
 
 var User = require('../models/user');
 var config = require('../config/main');
@@ -45,13 +49,57 @@ module.exports = function(passport) {
       clientID: apiCredentials.FACEBOOK_APP_ID,
       clientSecret: apiCredentials.FACEBOOK_APP_SECRET,
       callbackURL: apiCredentials.FACEBOOK_CALLBACK_URL
-    },
-    function(accessToken, refreshToken, profile, done) {
-      /*User.findOrCreate(..., function(err, user) {
-        if (err) { return done(err); }
-        done(null, user);
-      });*/
-      console.log(JSON.stringify(profile));
-    }
-  ));
+        },
+        function(accessToken, refreshToken, profile, done) {
+          /*User.findOrCreate(..., function(err, user) {
+            if (err) { return done(err); }
+            done(null, user);
+          });*/
+          console.log(JSON.stringify(profile));
+        }
+    ));
+
+    // Twitter Strategy Login
+    passport.use(new TwitterStrategy({
+            consumerKey: apiCredentials.TWITTER_CONSUMER_KEY,
+            consumerSecret: apiCredentials.TWITTER_CONSUMER_SECRET,
+            callbackURL: apiCredentials.TWITTER_CALLBACK_URL
+        },
+        function(token, tokenSecret, profile, done) {
+            /*User.findOrCreate(..., function(err, user) {
+                if (err) { return done(err); }
+                done(null, user);
+            });*/
+            console.log(JSON.stringify(profile));
+        }
+    ));
+
+    // GitHub Strategy Login
+    passport.use(new GitHubStrategy({
+            clientID: apiCredentials.GITHUB_CLIENT_ID,
+            clientSecret: apiCredentials.GITHUB_CLIENT_SECRET,
+            callbackURL: apiCredentials.GITHUB_CALLBACK_URL
+        },
+        function(accessToken, refreshToken, profile, done) {
+            /*User.findOrCreate({ githubId: profile.id }, function (err, user) {
+                return done(err, user);
+            });*/
+            console.log(JSON.stringify(profile));
+        }
+    ));
+
+    // LinkedIn Strategy Login
+    passport.use(new LinkedInStrategy({
+            consumerKey: apiCredentials.LINKEDIN_API_KEY,
+            consumerSecret: apiCredentials.LINKEDIN_SECRET_KEY,
+            callbackURL: apiCredentials.LINKEDIN_CALLBACK_URL
+        },
+        function(token, tokenSecret, profile, done) {
+            /*User.findOrCreate({ linkedinId: profile.id }, function (err, user) {
+                return done(err, user);
+            });*/
+            console.log(JSON.stringify(profile));
+        }
+    ));
+
 };

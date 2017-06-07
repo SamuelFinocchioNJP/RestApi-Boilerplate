@@ -62,9 +62,39 @@ router.get('/auth/google/callback',
     });
 
 // Facebook authentication routes
-app.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback',
+router.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
+
+// Twitter authentication routes
+router.get('/auth/twitter', passport.authenticate('twitter'));
+
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { successRedirect: '/',
+        failureRedirect: '/login' }));
+
+// GitHub authentication routes
+router.get('/auth/github',
+    passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/auth/github/callback',
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+
+//LinkedIn authentication routes
+router.get('/auth/linkedin',
+    passport.authenticate('linkedin'));
+
+router.get('/auth/linkedin/callback',
+    passport.authenticate('linkedin', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+
 
 module.exports = router;

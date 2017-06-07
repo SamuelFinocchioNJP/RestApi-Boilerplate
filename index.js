@@ -4,11 +4,12 @@
  */
 
 // Dependencies
-const express = require ('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const morgan = require('morgan');
+const session = require('express-session');
 
 const mainConfig = require('./config/main');
 
@@ -25,8 +26,12 @@ app.use(bodyParser.json());
 // Morgan initialization
 app.use(morgan(mainConfig.environment));
 
+// Express Session initialization
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+
 // Passport initialization
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Requests handling
 app.get('/', function (req, res, next) {
