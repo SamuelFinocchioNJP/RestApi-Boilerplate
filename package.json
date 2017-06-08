@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-server": "java -jar swagger-codegen.jar generate -i swagger.json -l nodejs-server -o ."
+    "generate-server": "java -jar ./dependencies/swagger-codegen.jar generate -i swagger.json -l nodejs-server -o ."
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "auth",
     "mongoose"
   ],
-  "author": "SamuelFinocchio (InformaticageNJP)",
+  "author": "SamuelFinocchio (InformaticageNJP), SamuelRoberto",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
