@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
+require('../config/passport');
+
 // Application configuration
 const config = require('../config/main');
 
@@ -12,7 +14,7 @@ var passport = require('passport');
 const User = require('../models/user');
 const expressJwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
-const passportConfig = require('../config/passport')(passport);
+
 const mainConfig = require('../config/main');
 const authenticate = expressJwt({secret: mainConfig.secret});
 
@@ -96,5 +98,14 @@ router.get('/auth/linkedin/callback',
         res.redirect('/');
     });
 
+router.get('/auth/instagram',
+    passport.authenticate('instagram'));
+
+router.get('/auth/instagram/callback',
+    passport.authenticate('instagram', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
 
 module.exports = router;
