@@ -4,7 +4,8 @@
   "description": "NodeJS Auth boilerplate",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-server": "java -jar swagger-codegen.jar generate -i swagger.json -l nodejs-server -o ."
   },
   "repository": {
     "type": "git",
