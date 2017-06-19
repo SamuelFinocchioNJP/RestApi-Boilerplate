@@ -38,6 +38,7 @@
     "passport-linkedin": "^1.0.0",
     "passport-oauth1": "^1.1.0",
     "passport-twitter": "^1.0.4",
+    "paypal-rest-sdk": "^1.7.1",
     "swagger-tools": "^0.10.1"
   }
 }
