@@ -1,6 +1,6 @@
 /**
  * NodeJS Auth
- * Author: SamuelFinocchio (InformaticageNJP)
+ * Author: SamuelFinocchio (InformaticageNJP) && Samuel Roberto 
  */
 
 // Dependencies
